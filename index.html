@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bow 2 Stern Survey Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="kicker">Bow 2 Stern Surveys</p>
+      <h1>Marine Survey Form</h1>
+    </div>
+    <div class="header-actions">
+      <button type="button" id="exportJson" title="Save unfinished work">Save Work</button>
+      <label class="button-like" title="Restore from a backup file">
+        Open Saved Work
+        <input id="importJson" type="file" accept="application/json">
+      </label>
+      <button type="button" id="clearForm" class="danger" title="Clear this device's saved survey">New Blank Survey</button>
+      <button type="button" id="printReport" class="primary" title="Print or save as PDF">Make PDF</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <nav class="section-nav" aria-label="Survey sections"></nav>
+
+    <form id="surveyForm" autocomplete="on">
+      <section class="panel" data-section="cover">
+        <div class="section-title">
+          <span>01</span>
+          <h2>Cover</h2>
+        </div>
+        <div class="grid two">
+          <label>Prepared for<input name="preparedFor" type="text"></label>
+          <label>Inspection date<input name="inspectionDate" type="date"></label>
+          <label>Report number<input name="reportNumber" type="text"></label>
+          <label>Place of survey<input name="placeOfSurvey" type="text"></label>
+          <label class="wide">Boat make, year, length<input name="boatSummary" type="text"></label>
+        </div>
+        <div class="photo-slot" data-photo="coverPhoto">
+          <div>
+            <strong>Boat image</strong>
+            <span>Tap to add from Photos or camera.</span>
+          </div>
+          <input type="file" accept="image/*" capture="environment">
+          <img alt="">
+        </div>
+      </section>
+
+      <section class="panel" data-section="general">
+        <div class="section-title">
+          <span>02</span>
+          <h2>General Information</h2>
+        </div>
+        <div class="grid three">
+          <label>Type of survey<input name="surveyType" type="text"></label>
+          <label>Make of vessel<input name="vesselMake" type="text"></label>
+          <label>Year of vessel<input name="vesselYear" type="text" inputmode="numeric"></label>
+          <label>Date of manufacturing<input name="manufactureDate" type="text"></label>
+          <label>Registration number<input name="registrationNumber" type="text"></label>
+          <label>Hull identification number<input name="hin" type="text"></label>
+          <label>Length<input name="length" type="text"></label>
+          <label>Beam<input name="beam" type="text"></label>
+          <label>Draft<input name="draft" type="text"></label>
+          <label>Boat weight<input name="displacement" type="text"></label>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-slot" data-photo="registrationPhoto"><div><strong>Registration image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="hinPhoto"><div><strong>H.I.N. image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+        </div>
+      </section>
+
+      <section class="panel" data-section="hull">
+        <div class="section-title">
+          <span>03</span>
+          <h2>Hull and Deck</h2>
+        </div>
+        <div class="grid two">
+          <label>Bottom information<textarea name="bottomInfo" rows="5"></textarea></label>
+          <label>Topsides<textarea name="topsides" rows="5"></textarea></label>
+          <label>Transom<textarea name="transom" rows="4"></textarea></label>
+          <label>Deck<textarea name="deck" rows="4"></textarea></label>
+          <label>Hull to deck joint<textarea name="hullDeckJoint" rows="4"></textarea></label>
+          <label>Stringers and bulkheads<textarea name="structureNotes" rows="4"></textarea></label>
+        </div>
+        <div class="check-row">
+          <label><input type="checkbox" name="antifouling"> Antifouling</label>
+          <label><input type="checkbox" name="highMoisture"> High moisture noted</label>
+          <label><input type="checkbox" name="delamination"> Delamination noted</label>
+        </div>
+      </section>
+
+      <section class="panel" data-section="cockpit">
+        <div class="section-title">
+          <span>04</span>
+          <h2>Cockpit and Helm</h2>
+        </div>
+        <div class="grid two">
+          <label>Cockpit<textarea name="cockpit" rows="5"></textarea></label>
+          <label>Helm<textarea name="helm" rows="5"></textarea></label>
+        </div>
+        <fieldset>
+          <legend>Helm equipment</legend>
+          <div class="check-row compact">
+            <label><input type="checkbox" name="trimTabs"> Trim tabs</label>
+            <label><input type="checkbox" name="waypoint"> Way-point</label>
+            <label><input type="checkbox" name="vhfHelm"> VHF</label>
+            <label><input type="checkbox" name="stereoHelm"> Stereo</label>
+            <label><input type="checkbox" name="gpsHelm"> GPS</label>
+            <label><input type="checkbox" name="spotlight"> Spotlight</label>
+            <label><input type="checkbox" name="compassHelm"> Compass</label>
+            <label><input type="checkbox" name="depthSounderHelm"> Depth sounder</label>
+          </div>
+        </fieldset>
+        <div class="photo-grid">
+          <div class="photo-slot" data-photo="cockpitPhoto"><div><strong>Cockpit image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="helmPhoto"><div><strong>Helm image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+        </div>
+      </section>
+
+      <section class="panel" data-section="navigation">
+        <div class="section-title">
+          <span>05</span>
+          <h2>Navigation Equipment</h2>
+        </div>
+        <div class="grid three">
+          <label>Radar manufacturer<input name="radarMfg" type="text"></label>
+          <label>GPS<input name="gps" type="text"></label>
+          <label>Depth finder<input name="depthFinder" type="text"></label>
+          <label>Signaling type<input name="signalingType" type="text"></label>
+        </div>
+        <div class="check-row compact">
+          <label><input type="checkbox" name="navLights"> Navigation lights</label>
+          <label><input type="checkbox" name="compass"> Compass</label>
+          <label><input type="checkbox" name="radar"> Radar</label>
+          <label><input type="checkbox" name="radarReflector"> Radar reflector</label>
+          <label><input type="checkbox" name="soundSignal"> Sound signaling</label>
+          <label><input type="checkbox" name="knotLog"> Knot/log</label>
+          <label><input type="checkbox" name="vhf"> VHF radio</label>
+          <label><input type="checkbox" name="autoPilot"> Auto pilot</label>
+          <label><input type="checkbox" name="wipers"> Wipers</label>
+          <label><input type="checkbox" name="searchLight"> Search light</label>
+        </div>
+        <div class="photo-slot" data-photo="navigationPhoto"><div><strong>Navigation image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+      </section>
+
+      <section class="panel" data-section="propulsion">
+        <div class="section-title">
+          <span>06</span>
+          <h2>Propulsion</h2>
+        </div>
+        <div class="segmented">
+          <label><input type="radio" name="engineCount" value="Single Engine"> Single engine</label>
+          <label><input type="radio" name="engineCount" value="Twin Engine"> Twin engine</label>
+        </div>
+        <div class="grid two">
+          <fieldset>
+            <legend>Port / single engine</legend>
+            <label>Make<input name="engineMakePort" type="text"></label>
+            <label>Model<input name="engineModelPort" type="text"></label>
+            <label>HP<input name="engineHpPort" type="text"></label>
+            <label>Hours<input name="engineHoursPort" type="text"></label>
+            <label>Serial number<input name="engineSerialPort" type="text"></label>
+            <label><input type="checkbox" name="flameArresterPort"> Flame arrester</label>
+          </fieldset>
+          <fieldset>
+            <legend>Starboard engine</legend>
+            <label>Make<input name="engineMakeStarboard" type="text"></label>
+            <label>Model<input name="engineModelStarboard" type="text"></label>
+            <label>HP<input name="engineHpStarboard" type="text"></label>
+            <label>Hours<input name="engineHoursStarboard" type="text"></label>
+            <label>Serial number<input name="engineSerialStarboard" type="text"></label>
+            <label><input type="checkbox" name="flameArresterStarboard"> Flame arrester</label>
+          </fieldset>
+        </div>
+        <label>Propulsion comments<textarea name="propulsionComments" rows="5"></textarea></label>
+        <div class="photo-slot" data-photo="propulsionPhoto"><div><strong>Propulsion image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+      </section>
+
+      <section class="panel" data-section="systems">
+        <div class="section-title">
+          <span>07</span>
+          <h2>Mechanical Systems</h2>
+        </div>
+        <div class="grid two">
+          <label>Cooling system<textarea name="coolingSystem" rows="4"></textarea></label>
+          <label>Ventilation system<textarea name="ventilationSystem" rows="4"></textarea></label>
+          <label>Transmissions / outdrives<textarea name="transmissions" rows="4"></textarea></label>
+          <label>Propellers / shafts<textarea name="propellerShafts" rows="4"></textarea></label>
+          <label>Steering system<textarea name="steeringSystem" rows="4"></textarea></label>
+          <label>Thrusters / trim tabs<textarea name="thrustersTrimTabs" rows="4"></textarea></label>
+        </div>
+        <div class="photo-slot" data-photo="propShaftPhoto"><div><strong>Propeller / shaft image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+      </section>
+
+      <section class="panel" data-section="fuel">
+        <div class="section-title">
+          <span>08</span>
+          <h2>Fuel and Electrical</h2>
+        </div>
+        <div class="grid two">
+          <label>Fuel tanks<textarea name="fuelTanks" rows="4"></textarea></label>
+          <label>Fuel lines<textarea name="fuelLines" rows="4"></textarea></label>
+          <label>Fuel ventilation<textarea name="fuelVentilation" rows="4"></textarea></label>
+          <label>Anti-siphon / shut offs / filters<textarea name="fuelSafety" rows="4"></textarea></label>
+          <label>DC system<textarea name="dcSystem" rows="4"></textarea></label>
+          <label>AC system<textarea name="acSystem" rows="4"></textarea></label>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-slot" data-photo="fuelPhoto"><div><strong>Fuel system image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="electricalPhoto"><div><strong>Electrical system image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+        </div>
+      </section>
+
+      <section class="panel" data-section="comfort">
+        <div class="section-title">
+          <span>09</span>
+          <h2>Generator, AC and Interior</h2>
+        </div>
+        <div class="grid two">
+          <fieldset>
+            <legend>Generator</legend>
+            <div class="segmented">
+              <label><input type="radio" name="generatorStatus" value="Yes"> Yes</label>
+              <label><input type="radio" name="generatorStatus" value="No"> No</label>
+              <label><input type="radio" name="generatorStatus" value="NA"> NA</label>
+            </div>
+            <label>Make<input name="generatorMake" type="text"></label>
+            <label>Model<input name="generatorModel" type="text"></label>
+          </fieldset>
+          <fieldset>
+            <legend>Air conditioner</legend>
+            <div class="segmented">
+              <label><input type="radio" name="airConditionerStatus" value="Yes"> Yes</label>
+              <label><input type="radio" name="airConditionerStatus" value="No"> No</label>
+              <label><input type="radio" name="airConditionerStatus" value="NA"> NA</label>
+            </div>
+            <label>Make<input name="airConditionerMake" type="text"></label>
+            <label>Model<input name="airConditionerModel" type="text"></label>
+            <label>Condition<input name="airConditionerCondition" type="text"></label>
+          </fieldset>
+          <label>Fresh water system<textarea name="freshWater" rows="4"></textarea></label>
+          <label>Head and holding tanks<textarea name="headHolding" rows="4"></textarea></label>
+          <label>Salon<textarea name="salon" rows="4"></textarea></label>
+          <label>Galley<textarea name="galley" rows="4"></textarea></label>
+          <label>Head<textarea name="head" rows="4"></textarea></label>
+          <label>Aft cabin and entertainment<textarea name="aftCabin" rows="4"></textarea></label>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-slot" data-photo="generatorPhoto"><div><strong>Generator image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="salonPhoto"><div><strong>Salon image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="galleyPhoto"><div><strong>Galley image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="headPhoto"><div><strong>Head image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+          <div class="photo-slot" data-photo="aftCabinPhoto"><div><strong>Aft cabin image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+        </div>
+      </section>
+
+      <section class="panel" data-section="safety">
+        <div class="section-title">
+          <span>10</span>
+          <h2>Safety Equipment</h2>
+        </div>
+        <div class="check-row compact">
+          <label><input type="checkbox" name="gasFumeDetector"> Gas fume detector</label>
+          <label><input type="checkbox" name="coDetector"> CO detector</label>
+          <label><input type="checkbox" name="lpgDetector"> LPG detector</label>
+          <label><input type="checkbox" name="smokeDetector"> Smoke detector</label>
+          <label><input type="checkbox" name="fixedFireExtinguisher"> Fixed fire extinguisher</label>
+          <label><input type="checkbox" name="reboardingLadder"> Re-boarding ladder</label>
+          <label><input type="checkbox" name="fireSuppression"> Fire suppression system</label>
+        </div>
+        <label>Safety notes<textarea name="safetyNotes" rows="5"></textarea></label>
+        <div class="photo-slot" data-photo="safetyPhoto"><div><strong>Safety equipment image</strong><span>Add photo.</span></div><input type="file" accept="image/*" capture="environment"><img alt=""></div>
+      </section>
+
+      <section class="panel" data-section="findings">
+        <div class="section-title">
+          <span>11</span>
+          <h2>Findings and Valuation</h2>
+        </div>
+        <div class="grid two">
+          <label>Safety deficiencies<textarea name="safetyDeficiencies" rows="5"></textarea></label>
+          <label>Safety recommendations<textarea name="safetyRecommendations" rows="5"></textarea></label>
+          <label>Other deficiencies<textarea name="otherDeficiencies" rows="5"></textarea></label>
+          <label>Other recommendations<textarea name="otherRecommendations" rows="5"></textarea></label>
+          <label>Surveyor notes and observations<textarea name="surveyorNotes" rows="5"></textarea></label>
+          <label>Overall vessel rating<select name="overallRating"><option></option><option>Excellent</option><option>Good</option><option>Fair</option><option>Poor</option><option>Restorable</option></select></label>
+          <label>Fair market value<input name="fairMarketValue" type="text"></label>
+          <label>Estimated replacement value<input name="replacementValue" type="text"></label>
+          <label>Inspection conclusion date<input name="conclusionDate" type="date"></label>
+        </div>
+      </section>
+    </form>
+
+    <aside class="report-preview" aria-label="Report preview">
+      <div class="preview-header">
+        <span>Live report</span>
+        <strong id="savedState">Saved</strong>
+      </div>
+      <article id="report"></article>
+    </aside>
+  </main>
+
+  <template id="photoTemplate">
+    <figure>
+      <img alt="">
+      <figcaption></figcaption>
+    </figure>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
