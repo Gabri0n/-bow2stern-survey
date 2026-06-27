@@ -450,6 +450,94 @@ input[type="radio"] {
   font-weight: 800;
 }
 
+.moisture-hint {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.moisture-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: 16px auto 0;
+  user-select: none;
+}
+
+.moisture-diagram[hidden] {
+  display: none;
+}
+
+.moisture-diagram[data-vessel-diagram="Powerboat"] {
+  aspect-ratio: 787 / 793;
+}
+
+.moisture-diagram[data-vessel-diagram="Sailboat"] {
+  aspect-ratio: 806 / 836;
+}
+
+.moisture-diagram img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+input.moisture-input {
+  position: absolute;
+  appearance: none;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0 2px;
+  border: 1px solid rgba(15, 107, 143, .55);
+  border-radius: 3px;
+  color: var(--brand-dark);
+  background: rgba(255, 255, 255, .92);
+  font-size: .82rem;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1;
+}
+
+.moisture-input:focus {
+  z-index: 1;
+  outline: 2px solid var(--brand);
+  background: #fff;
+}
+
+.report-moisture-diagram {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+.report-moisture-diagram[data-vessel-diagram="Powerboat"] {
+  aspect-ratio: 787 / 793;
+}
+
+.report-moisture-diagram[data-vessel-diagram="Sailboat"] {
+  aspect-ratio: 806 / 836;
+}
+
+.report-moisture-diagram img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.report-moisture-value {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .empty {
   color: #80909e;
 }

@@ -6,6 +6,7 @@ const DB_STORE = "photos";
 const sections = [
   ["cover", "Cover"],
   ["general", "General"],
+  ["moisture", "Moisture"],
   ["hull", "Hull and Deck"],
   ["cockpit", "Cockpit and Helm"],
   ["navigation", "Navigation"],
@@ -34,6 +35,63 @@ const photoLabels = {
   headPhoto: "Head image",
   aftCabinPhoto: "Aft cabin image",
   safetyPhoto: "Safety equipment image"
+};
+
+const moisturePoints = {
+  Powerboat: [
+    { x: 20.1, y: 4.87, w: 6.69, h: 5.15 },
+    { x: 69.27, y: 4.73, w: 6.83, h: 5.3 },
+    { x: 28.74, y: 8.7, w: 9.11, h: 4.54 },
+    { x: 57.45, y: 8.45, w: 9.11, h: 4.54 },
+    { x: 19.96, y: 12.31, w: 6.83, h: 5.15 },
+    { x: 69.27, y: 12.06, w: 6.83, h: 5.15 },
+    { x: 28.61, y: 18.17, w: 9.11, h: 4.39 },
+    { x: 59.88, y: 18.52, w: 8.97, h: 4.69 },
+    { x: 19.84, y: 24.04, w: 6.83, h: 5.15 },
+    { x: 69.27, y: 23.28, w: 6.83, h: 5.15 },
+    { x: 27.98, y: 30.63, w: 8.97, h: 4.69 },
+    { x: 60.28, y: 31.01, w: 8.54, h: 4.69 },
+    { x: 19.7, y: 40.68, w: 6.97, h: 5.15 },
+    { x: 69.39, y: 40.81, w: 6.83, h: 5.15 },
+    { x: 27.93, y: 47.41, w: 9.96, h: 4.54 },
+    { x: 60.13, y: 47.68, w: 8.97, h: 4.39 },
+    { x: 19.58, y: 54.3, w: 6.97, h: 5.15 },
+    { x: 69.39, y: 54.55, w: 6.97, h: 5.15 },
+    { x: 28.02, y: 60.78, w: 10.67, h: 4.54 },
+    { x: 58.96, y: 61.03, w: 9.53, h: 4.54 },
+    { x: 19.71, y: 65.9, w: 6.83, h: 5.15 },
+    { x: 69.39, y: 65.78, w: 6.97, h: 5.15 },
+    { x: 28.13, y: 70.74, w: 10.96, h: 4.54 },
+    { x: 58.42, y: 71.02, w: 10.1, h: 4.24 },
+    { x: 19.71, y: 74.74, w: 6.83, h: 4.99 },
+    { x: 69.39, y: 75.11, w: 6.83, h: 5.15 },
+    { x: 28.41, y: 79.32, w: 10.53, h: 4.54 },
+    { x: 58.4, y: 79.7, w: 10.39, h: 4.54 },
+    { x: 19.7, y: 83.93, w: 6.97, h: 5.15 },
+    { x: 69.39, y: 84.17, w: 6.97, h: 5.3 },
+    { x: 19.58, y: 89.23, w: 6.97, h: 5.15 },
+    { x: 69.39, y: 89.86, w: 6.97, h: 5.15 },
+  ],
+  Sailboat: [
+    { x: 41.34, y: 8.12, w: 4.17, h: 3.01 },
+    { x: 21.62, y: 10.16, w: 4.03, h: 3.01 },
+    { x: 56.48, y: 11.47, w: 4.03, h: 3.01 },
+    { x: 70.87, y: 16.73, w: 4.17, h: 3.01 },
+    { x: 11.32, y: 16.97, w: 4.03, h: 3.01 },
+    { x: 40.07, y: 17.09, w: 4.72, h: 3.01 },
+    { x: 56.35, y: 22.24, w: 4.17, h: 3.01 },
+    { x: 21.62, y: 24.15, w: 4.03, h: 3.01 },
+    { x: 41.46, y: 25.71, w: 4.17, h: 3.01 },
+    { x: 41.48, y: 33.85, w: 6.25, h: 2.87 },
+    { x: 58.23, y: 53.7, w: 6.25, h: 3.01 },
+    { x: 43.4, y: 77.27, w: 5.14, h: 2.87 },
+    { x: 6.48, y: 80.01, w: 4.17, h: 3.01 },
+    { x: 18.28, y: 81.57, w: 6.11, h: 3.01 },
+    { x: 32.01, y: 82.76, w: 4.59, h: 3.01 },
+    { x: 41.35, y: 83.13, w: 4.03, h: 2.87 },
+    { x: 17.9, y: 86.23, w: 6.25, h: 3.01 },
+    { x: 40.61, y: 89.0, w: 6.25, h: 2.87 },
+  ]
 };
 
 const reportSections = [
@@ -415,7 +473,7 @@ function renderReport() {
       <p>info@bow2sternsurveys.com | www.bow2sternsurveys.com | 416-788-6281</p>
     </section>`;
 
-  const body = reportSections.map(section => {
+  const sectionBlocks = reportSections.map(section => {
     const fields = section.fields.map(([label, name]) => reportField(label, name)).join("");
     const photoHtml = (section.photos || []).map(photoFigure).join("");
     if (!fields && !photoHtml) return "";
@@ -425,9 +483,67 @@ function renderReport() {
         ${fields || '<p class="empty">No entries yet.</p>'}
         ${photoHtml ? `<div class="report-photos">${photoHtml}</div>` : ""}
       </section>`;
-  }).join("");
+  });
+  sectionBlocks.splice(1, 0, moistureReportBlock());
+  const body = sectionBlocks.join("");
 
   report.innerHTML = cover + body;
+}
+
+function syncMoistureVisibility() {
+  const checked = form.querySelector('input[name="vesselType"]:checked');
+  const vessel = checked ? checked.value : "Powerboat";
+  document.querySelectorAll(".moisture-diagram").forEach(diagram => {
+    diagram.hidden = diagram.dataset.vesselDiagram !== vessel;
+  });
+}
+
+function setupMoisture() {
+  document.querySelectorAll(".moisture-diagram").forEach(diagram => {
+    const vessel = diagram.dataset.vesselDiagram;
+    const points = moisturePoints[vessel] || [];
+    points.forEach((point, index) => {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.inputMode = "decimal";
+      input.name = `moisture${vessel}${String(index + 1).padStart(2, "0")}`;
+      input.className = "moisture-input";
+      input.style.left = `${point.x}%`;
+      input.style.top = `${point.y}%`;
+      input.style.width = `${point.w}%`;
+      input.style.height = `${point.h}%`;
+      input.setAttribute("aria-label", `${vessel} moisture reading ${index + 1}`);
+      diagram.append(input);
+    });
+  });
+  form.querySelectorAll('input[name="vesselType"]').forEach(radio => {
+    radio.addEventListener("change", syncMoistureVisibility);
+  });
+  syncMoistureVisibility();
+}
+
+function moistureReportBlock() {
+  const checked = form.querySelector('input[name="vesselType"]:checked');
+  const vessel = checked ? checked.value : "Powerboat";
+  const points = moisturePoints[vessel] || [];
+  const src = vessel === "Sailboat" ? "moisture-sailboat.png" : "moisture-powerboat.png";
+  const overlays = points.map((point, index) => {
+    const name = `moisture${vessel}${String(index + 1).padStart(2, "0")}`;
+    const value = valueFor(name);
+    if (!value) return "";
+    const style = `left:${point.x}%;top:${point.y}%;width:${point.w}%;height:${point.h}%`;
+    return `<span class="report-moisture-value" style="${style}">${escapeHtml(value)}</span>`;
+  }).join("");
+  const notes = reportField("Moisture notes", "moistureNotes");
+  return `
+    <section class="report-section">
+      <h3>Moisture (${escapeHtml(vessel)})</h3>
+      <div class="report-moisture-diagram" data-vessel-diagram="${vessel}">
+        <img src="${src}" alt="${escapeHtml(vessel)} moisture reading chart">
+        ${overlays}
+      </div>
+      ${notes || '<p class="empty">No moisture notes yet.</p>'}
+    </section>`;
 }
 
 function setupNavigation() {
@@ -512,6 +628,7 @@ function setupActions() {
       try {
         const backup = JSON.parse(reader.result);
         applyData(backup.data || {});
+        syncMoistureVisibility();
         await saveAllPhotos(backup.photos || {});
         document.querySelectorAll(".photo-slot").forEach(slot => {
           const name = slot.dataset.photo;
@@ -539,6 +656,7 @@ function setupActions() {
     localStorage.removeItem(STORE_KEY);
     await clearPhotos();
     form.reset();
+    syncMoistureVisibility();
     document.querySelectorAll(".photo-slot").forEach(slot => {
       slot.classList.remove("has-photo");
       slot.querySelector("img").removeAttribute("src");
@@ -550,8 +668,10 @@ function setupActions() {
 
 async function init() {
   photos = await loadPhotos();
-  applyData(loadJson(STORE_KEY, {}));
   setupNavigation();
+  setupMoisture();
+  applyData(loadJson(STORE_KEY, {}));
+  syncMoistureVisibility();
   setupPhotos();
   setupActions();
   renderReport();

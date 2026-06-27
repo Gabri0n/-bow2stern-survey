@@ -72,9 +72,31 @@
         </div>
       </section>
 
-      <section class="panel" data-section="hull">
+      <section class="panel" data-section="moisture">
         <div class="section-title">
           <span>03</span>
+          <h2>Moisture</h2>
+        </div>
+        <fieldset>
+          <legend>Vessel type</legend>
+          <div class="segmented">
+            <label><input type="radio" name="vesselType" value="Powerboat" checked> Powerboat</label>
+            <label><input type="radio" name="vesselType" value="Sailboat"> Sailboat</label>
+          </div>
+        </fieldset>
+        <p class="moisture-hint">Tap a square and enter a moisture reading. Switch vessel type above to change the chart.</p>
+        <div class="moisture-diagram" data-vessel-diagram="Powerboat">
+          <img src="moisture-powerboat.png" alt="Powerboat moisture reading chart">
+        </div>
+        <div class="moisture-diagram" data-vessel-diagram="Sailboat" hidden>
+          <img src="moisture-sailboat.png" alt="Sailboat moisture reading chart">
+        </div>
+        <label class="wide">Moisture notes<textarea name="moistureNotes" rows="4"></textarea></label>
+      </section>
+
+      <section class="panel" data-section="hull">
+        <div class="section-title">
+          <span>04</span>
           <h2>Hull and Deck</h2>
         </div>
         <div class="grid two">
@@ -94,7 +116,7 @@
 
       <section class="panel" data-section="cockpit">
         <div class="section-title">
-          <span>04</span>
+          <span>05</span>
           <h2>Cockpit and Helm</h2>
         </div>
         <div class="grid two">
@@ -122,7 +144,7 @@
 
       <section class="panel" data-section="navigation">
         <div class="section-title">
-          <span>05</span>
+          <span>06</span>
           <h2>Navigation Equipment</h2>
         </div>
         <div class="grid three">
@@ -148,7 +170,7 @@
 
       <section class="panel" data-section="propulsion">
         <div class="section-title">
-          <span>06</span>
+          <span>07</span>
           <h2>Propulsion</h2>
         </div>
         <div class="segmented">
@@ -181,7 +203,7 @@
 
       <section class="panel" data-section="systems">
         <div class="section-title">
-          <span>07</span>
+          <span>08</span>
           <h2>Mechanical Systems</h2>
         </div>
         <div class="grid two">
@@ -197,7 +219,7 @@
 
       <section class="panel" data-section="fuel">
         <div class="section-title">
-          <span>08</span>
+          <span>09</span>
           <h2>Fuel and Electrical</h2>
         </div>
         <div class="grid two">
@@ -216,7 +238,7 @@
 
       <section class="panel" data-section="comfort">
         <div class="section-title">
-          <span>09</span>
+          <span>10</span>
           <h2>Generator, AC and Interior</h2>
         </div>
         <div class="grid two">
@@ -259,7 +281,7 @@
 
       <section class="panel" data-section="safety">
         <div class="section-title">
-          <span>10</span>
+          <span>11</span>
           <h2>Safety Equipment</h2>
         </div>
         <div class="check-row compact">
@@ -277,7 +299,7 @@
 
       <section class="panel" data-section="findings">
         <div class="section-title">
-          <span>11</span>
+          <span>12</span>
           <h2>Findings and Valuation</h2>
         </div>
         <div class="grid two">
