@@ -546,6 +546,43 @@ function moistureReportBlock() {
     </section>`;
 }
 
+const propulsionSyncPairs = [
+  ["engineMakePort", "engineMakeStarboard"],
+  ["engineModelPort", "engineModelStarboard"],
+  ["engineHpPort", "engineHpStarboard"],
+  ["flameArresterPort", "flameArresterStarboard"]
+];
+
+function isTwinEngineSelected() {
+  const checked = form.querySelector('input[name="engineCount"]:checked');
+  return checked ? checked.value === "Twin Engine" : false;
+}
+
+function syncPropulsionFromPort() {
+  if (!isTwinEngineSelected()) return;
+  propulsionSyncPairs.forEach(([sourceName, targetName]) => {
+    const source = form.elements[sourceName];
+    const target = form.elements[targetName];
+    if (!source || !target) return;
+    if (source.type === "checkbox") {
+      target.checked = source.checked;
+    } else {
+      target.value = source.value;
+    }
+  });
+}
+
+function setupPropulsion() {
+  form.querySelectorAll('input[name="engineCount"]').forEach(radio => {
+    radio.addEventListener("change", syncPropulsionFromPort);
+  });
+  propulsionSyncPairs.forEach(([sourceName]) => {
+    const source = form.elements[sourceName];
+    if (!source) return;
+    source.addEventListener(source.type === "checkbox" ? "change" : "input", syncPropulsionFromPort);
+  });
+}
+
 function setupNavigation() {
   const nav = document.querySelector(".section-nav");
   nav.innerHTML = sections.map(([id, label]) => `<a href="#${id}" data-target="${id}">${label}</a>`).join("");
@@ -670,6 +707,7 @@ async function init() {
   photos = await loadPhotos();
   setupNavigation();
   setupMoisture();
+  setupPropulsion();
   applyData(loadJson(STORE_KEY, {}));
   syncMoistureVisibility();
   setupPhotos();
